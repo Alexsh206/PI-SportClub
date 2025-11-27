@@ -25,5 +25,5 @@ public class TeamMember {
     private Athlete athlete;
 
     @Column(name = "joined_at")
-    private String LocalDate; // можна замінити на LocalDate
+    private String LocalDate;
 }

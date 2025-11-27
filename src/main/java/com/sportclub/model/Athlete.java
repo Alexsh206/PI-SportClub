@@ -39,7 +39,8 @@ public class Athlete {
 
 
     @OneToMany(mappedBy = "athlete", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TeamMemberId> teamMembershipIds;
+    private List<TeamMember> teamMemberships;
+
 
 
     @OneToMany(mappedBy = "athlete", cascade = CascadeType.ALL, orphanRemoval = false)
