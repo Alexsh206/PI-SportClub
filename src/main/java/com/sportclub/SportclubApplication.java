@@ -1,4 +1,4 @@
-package com.example.sportclub;
+package com.sportclub;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
