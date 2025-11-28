@@ -7,6 +7,8 @@ import java.util.List;
 @Entity
 @Table(name = "teams")
 @Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -25,7 +27,7 @@ public class Team {
     private Coach coach;
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
-    private List<TeamMemberId> teamMemberIds;
+    private List<TeamMember> teamMembers;
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     private List<EventParticipant> eventParticipants;

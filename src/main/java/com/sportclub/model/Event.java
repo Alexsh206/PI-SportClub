@@ -10,6 +10,8 @@ import java.util.List;
 @Table(name = "events")
 @Data
 @NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
 @Builder
 public class Event {

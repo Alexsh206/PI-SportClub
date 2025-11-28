@@ -6,6 +6,8 @@ import java.io.Serializable;
 
 @Embeddable
 @Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class TeamMemberId implements Serializable {

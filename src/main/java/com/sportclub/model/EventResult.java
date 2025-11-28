@@ -6,6 +6,8 @@ import lombok.*;
 @Entity
 @Table(name = "event_results")
 @Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

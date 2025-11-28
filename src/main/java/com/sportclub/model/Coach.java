@@ -8,6 +8,8 @@ import java.util.List;
 @Entity
 @Table(name = "coaches")
 @Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

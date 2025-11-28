@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "online_access")
 @Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
