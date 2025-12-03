@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -40,4 +41,9 @@ public class SpectatorService {
     public void delete(Long id) {
         spectatorRepository.deleteById(id);
     }
+
+    public Optional<Spectator> login(String email, String password) {
+        return spectatorRepository.findByEmailAndPassword(email, password);
+    }
+
 }

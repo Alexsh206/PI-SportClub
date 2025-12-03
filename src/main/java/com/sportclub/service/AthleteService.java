@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -39,5 +40,9 @@ public class AthleteService {
 
     public void delete(Long id) {
         athleteRepository.deleteById(id);
+    }
+
+    public Optional<Athlete> login(String email, String password) {
+        return athleteRepository.findByEmailAndPassword(email, password);
     }
 }
