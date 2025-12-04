@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getEventById } from "../api/api";
 
 export default function EventCard({ event }) {
@@ -22,17 +23,19 @@ export default function EventCard({ event }) {
 
     return (
         <div className="event-card">
+
             <h2 className="event-title">{fullEvent.title}</h2>
-
-            <p className="event-subtext">{fullEvent.sport_type}</p>
-
+            <p className="event-subtext">{fullEvent.sportType}</p>
             <p className="event-subtext">{fullEvent.location}</p>
 
             <p className="event-subtext">
-                {fullEvent.event_date} · {fullEvent.event_time?.slice(0, 5)}
+                {fullEvent.date} · {fullEvent.time?.slice(0, 5)}
             </p>
 
-            <button className="show-more-btn">Show more</button>
+            <Link to={`/events/${fullEvent.id}`}>
+                <button className="show-more-btn">Show more</button>
+            </Link>
+
         </div>
     );
 }

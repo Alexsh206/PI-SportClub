@@ -1,5 +1,6 @@
 package com.sportclub.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.List;
@@ -27,8 +28,10 @@ public class Team {
     private Coach coach;
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<TeamMember> teamMembers;
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<EventParticipant> eventParticipants;
 }

@@ -1,28 +1,29 @@
 package com.sportclub.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
 @Table(name = "event_participants")
-@Data
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = {"event"})
+@EqualsAndHashCode(exclude = {"event"})
 public class EventParticipant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "participant_id")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "event_id", nullable = false)
+    @JoinColumn(name = "event_id")
+    @JsonIgnore
     private Event event;
 
-    @Column(name = "participant_type", nullable = false)
     private String participantType;
 
     @ManyToOne

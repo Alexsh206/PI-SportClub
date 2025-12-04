@@ -1,5 +1,6 @@
 package com.sportclub.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,10 +21,12 @@ public class EventResult {
 
     @ManyToOne
     @JoinColumn(name = "event_id", nullable = false)
+    @JsonIgnore
     private Event event;
 
     @ManyToOne
     @JoinColumn(name = "participant_id", nullable = false)
+    @JsonIgnore
     private EventParticipant participant;
 
     @Column(nullable = false)

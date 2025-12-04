@@ -1,5 +1,6 @@
 package com.sportclub.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
@@ -8,12 +9,13 @@ import java.util.List;
 
 @Entity
 @Table(name = "events")
-@Data
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = {"participants", "results", "tickets", "onlineAccess", "hall"})
+@EqualsAndHashCode(exclude = {"participants", "results", "tickets", "onlineAccess", "hall"})
 public class Event {
 
     @Id
@@ -21,41 +23,40 @@ public class Event {
     @Column(name = "event_id")
     private Long id;
 
-    @Column(nullable = false)
     private String title;
 
-    @Column(name = "sport_type", nullable = false)
+    @Column(name = "sport_type")
     private String sportType;
 
-    @Column(name = "tournament_name")
     private String tournamentName;
 
-    @Column(name = "event_date", nullable = false)
+    @Column(name = "event_date")
     private LocalDate date;
 
-    @Column(name = "event_time", nullable = false)
+    @Column(name = "event_time")
     private LocalTime time;
 
-    @Column(nullable = false)
     private String location;
 
-    @Column(nullable = false)
-    private String status; // scheduled / finished / canceled
-
-    // --- Relationships ---
+    private String status;
 
     @OneToMany(mappedBy = "event")
+    @JsonIgnore
     private List<EventParticipant> participants;
 
     @OneToMany(mappedBy = "event")
+    @JsonIgnore
     private List<EventResult> results;
 
     @OneToOne(mappedBy = "event", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Hall hall;
 
     @OneToMany(mappedBy = "event")
+    @JsonIgnore
     private List<Ticket> tickets;
 
     @OneToMany(mappedBy = "event")
+    @JsonIgnore
     private List<OnlineAccess> onlineAccess;
 }

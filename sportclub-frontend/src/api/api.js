@@ -36,6 +36,7 @@ export async function login(credentials) {
     };
 }
 
+
 export function getAllEvents() {
     return request("/events/all");
 }
@@ -57,3 +58,20 @@ export function deleteEvent(id) {
     return request(`/events/${id}`, "DELETE");
 }
 
+
+export function getAllParticipants() {
+    return request("/event-participants/all");
+}
+
+export function getAllResults() {
+    return request("/event-results/all");
+}
+
+export function getParticipantsByEvent(id) {
+    return request(`/event-participants/event/${id}`);
+}
+
+
+export function getResultsByEvent(id) {
+    return request(`/event-results/event/${id}`);
+}

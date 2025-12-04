@@ -25,6 +25,11 @@ public class EventParticipantController {
         return ResponseEntity.ok(participantService.getById(id));
     }
 
+    @GetMapping("/event/{eventId}")
+    public ResponseEntity<List<EventParticipant>> getByEvent(@PathVariable Long eventId) {
+        return ResponseEntity.ok(participantService.getByEventId(eventId));
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<EventParticipant>> getAll() {
         return ResponseEntity.ok(participantService.getAll());

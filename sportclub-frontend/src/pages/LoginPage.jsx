@@ -1,20 +1,45 @@
 import React, { useState } from "react";
 import { useAuth } from "../auth/AuthProvider";
-import Navbar from "../components/Navbar";  // ⬅ Додаємо Navbar
+import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 export default function LoginPage() {
     const { login } = useAuth();
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await login({ email, password });
+        setError("");
+
+        try {
+            const res = await login({ email, password });
+
+            if (!res || !res.data) {
+                setError("Login failed");
+                return;
+            }
+
+            const role = res.data.role;
+
+            if (role === "admin") {
+                navigate("/admin");
+            } else if (role === "spectator") {
+                navigate("/");
+            }
+
+        } catch (err) {
+            console.error(err);
+            setError("Invalid email or password");
+        }
     };
 
     return (
         <>
-            <Navbar />  {/* ⬅ Панель зверху для LoginPage */}
+            <Navbar />
 
             <div className="login-page">
                 <div className="login-box">
@@ -36,6 +61,8 @@ export default function LoginPage() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
+
+                        {error && <p className="error-text">{error}</p>}
 
                         <p className="login-small-text">Don’t have account?</p>
 

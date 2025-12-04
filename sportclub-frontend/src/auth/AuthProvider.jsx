@@ -46,7 +46,6 @@ export function AuthProvider({ children }) {
 
                 setUser(profile);
 
-                // 🔥 ROLE-BASED ROUTING
                 if (role === "spectator") {
                     nav("/", { replace: true });
                 }

@@ -1,5 +1,6 @@
 package com.sportclub.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -41,10 +42,12 @@ public class Athlete {
 
 
     @OneToMany(mappedBy = "athlete", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<TeamMember> teamMemberships;
 
 
 
     @OneToMany(mappedBy = "athlete", cascade = CascadeType.ALL, orphanRemoval = false)
+    @JsonIgnore
     private List<EventParticipant> eventParticipants;
 }

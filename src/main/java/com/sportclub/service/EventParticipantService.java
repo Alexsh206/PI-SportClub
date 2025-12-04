@@ -22,6 +22,10 @@ public class EventParticipantService {
                 .orElseThrow(() -> new RuntimeException("Event participant not found"));
     }
 
+    public List<EventParticipant> getByEventId(Long eventId) {
+        return eventParticipantRepository.findByEvent_Id(eventId);
+    }
+
     public List<EventParticipant> getAll() {
         return eventParticipantRepository.findAll();
     }
@@ -40,4 +44,5 @@ public class EventParticipantService {
     public void delete(Long id) {
         eventParticipantRepository.deleteById(id);
     }
+
 }

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import EventCard from "../components/EventCard";
 
-// 🔥 імпорт з api.js
 import { getAllEvents } from "../api/api";
 
 export default function MainPage() {

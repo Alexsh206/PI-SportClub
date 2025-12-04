@@ -22,6 +22,11 @@ public class EventResultService {
                 .orElseThrow(() -> new RuntimeException("Event result not found"));
     }
 
+    public List<EventResult> getByEventId(Long eventId) {
+        return eventResultRepository.findByEvent_Id(eventId);
+    }
+
+
     public List<EventResult> getAll() {
         return eventResultRepository.findAll();
     }
