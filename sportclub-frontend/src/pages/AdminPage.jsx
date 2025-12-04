@@ -1,19 +1,27 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 
+
+import AnalyticsPanel from "../components/AnalyticsPanel";
+import CreateEventPanel from "../components/CreateEventPanel";
+import TeamsPanel from "../components/TeamsPanel";
+import AthletesPanel from "../components/AthletesPanel";
+import UsersPanel from "../components/UsersPanel";
+import ReportPanel from "../components/ReportPanel";
+import SalesOpeningPanel from "../components/SalesOpeningPanel";
+
 export default function AdminPage() {
-    const navigate = useNavigate();
+    const [panel, setPanel] = useState(null);
 
     const menuItems = [
-        { label: "Analytics", path: "/admin/analytics" },
-        { label: "Create event", path: "/admin/create-event" },
-        { label: "Teams", path: "/admin/teams" },
-        { label: "Atheletes", path: "/admin/athletes" },
-        { label: "Hall layout", path: "/admin/hall" },
-        { label: "Users", path: "/admin/users" },
-        { label: "Report", path: "/admin/report" },
-        { label: "Sales opening", path: "/admin/sales" },
+        { label: "Analytics", panel: "analytics" },
+        { label: "Create event", panel: "create-event" },
+        { label: "Teams", panel: "teams" },
+        { label: "Atheletes", panel: "athletes" },
+        { label: "Hall layout", panel: "hall" },
+        { label: "Users", panel: "users" },
+        { label: "Report", panel: "report" },
+        { label: "Sales opening", panel: "sales" },
     ];
 
     return (
@@ -22,20 +30,13 @@ export default function AdminPage() {
 
             <div className="admin-container">
 
-                {/* LEFT PANEL */}
+                {/* LEFT SIDEBAR */}
                 <div className="admin-sidebar">
-                    <img
-                        src="/logo.png"
-                        alt="logo"
-                        className="admin-logo"
-                    />
+                    <img src="/logo.png" alt="logo" className="admin-logo" />
 
                     <h2 className="admin-title">Admin panel</h2>
 
-                    <button
-                        className="admin-leave-btn"
-                        onClick={() => navigate("/")}
-                    >
+                    <button className="admin-leave-btn" onClick={() => setPanel(null)}>
                         Leave
                     </button>
 
@@ -44,7 +45,7 @@ export default function AdminPage() {
                             <button
                                 key={index}
                                 className="admin-menu-btn"
-                                onClick={() => navigate(item.path)}
+                                onClick={() => setPanel(item.panel)}
                             >
                                 {item.label}
                             </button>
@@ -52,9 +53,16 @@ export default function AdminPage() {
                     </div>
                 </div>
 
-                {/* RIGHT PANEL */}
+                {/* RIGHT CONTENT */}
                 <div className="admin-content">
-                    <h1>Hello Admin, it’s your admin panel</h1>
+
+                    {panel === "analytics" && <AnalyticsPanel />}
+                    {panel === "create-event" && <CreateEventPanel />}
+                    {panel === "teams" && <TeamsPanel />}
+                    {panel === "athletes" && <AthletesPanel />}
+                    {panel === "users" && <UsersPanel />}
+                    {panel === "report" && <ReportPanel />}
+                    {panel === "sales" && <SalesOpeningPanel />}
                 </div>
 
             </div>

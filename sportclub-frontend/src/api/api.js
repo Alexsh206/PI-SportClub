@@ -36,6 +36,22 @@ export async function login(credentials) {
     };
 }
 
+export function getAllTeams() {
+    return request("/teams/all");
+}
+
+export function createTeam(data) {
+    return request("/teams/create", "POST", data);
+}
+
+export function updateTeam(id, data) {
+    return request(`/teams/update/${id}`, "PUT", data);
+}
+
+export function deleteTeam(id) {
+    return request(`/teams/${id}`, "DELETE");
+}
+
 
 export function getAllEvents() {
     return request("/events/all");
@@ -74,4 +90,32 @@ export function getParticipantsByEvent(id) {
 
 export function getResultsByEvent(id) {
     return request(`/event-results/event/${id}`);
+}
+
+export function getAllAthletes() {
+    return request("/athletes/all");
+}
+
+export function createAthlete(data) {
+    return request("/athletes/create", "POST", data);
+}
+
+export function updateAthlete(id, data) {
+    return request(`/athletes/update/${id}`, "PUT", data);
+}
+
+export function deleteAthlete(id) {
+    return request(`/athletes/${id}`, "DELETE");
+}
+
+export function getAllUsers() {
+    return request("/spectators/all");
+}
+
+export function blockUser(id) {
+    return request(`/spectators/block/${id}`, "PUT");
+}
+
+export function unblockUser(id) {
+    return request(`/spectators/unblock/${id}`, "PUT");
 }
