@@ -127,3 +127,68 @@ export function createHallLayout(hallData) {
 export function getHallByEvent(eventId) {
     return request(`/halls/event/${eventId}`);
 }
+
+export function generateSeats({
+                                  hallId,
+                                  rows,
+                                  seatsInRow,
+                                  vipRows,
+                                  standardRows,
+                                  vipPrice,
+                                  standardPrice,
+                                  economyPrice
+                              }) {
+    const query =
+        `?hallId=${hallId}` +
+        `&rows=${rows}` +
+        `&seatsInRow=${seatsInRow}` +
+        `&vipRows=${vipRows}` +
+        `&standardRows=${standardRows}` +
+        `&vipPrice=${vipPrice}` +
+        `&standardPrice=${standardPrice}` +
+        `&economyPrice=${economyPrice}`;
+
+    return request(`/seats/generate${query}`, "POST");
+}
+
+export function getSeatsByHall(hallId) {
+    return request(`/seats/hall/${hallId}`);
+}
+
+export function generateSeatRanges({
+                                       hallId,
+                                       rows,
+                                       seatsInRow,
+
+                                       vipFrom,
+                                       vipTo,
+
+                                       standardFrom,
+                                       standardTo,
+
+                                       economyFrom,
+                                       economyTo,
+
+                                       vipPrice,
+                                       standardPrice,
+                                       economyPrice
+                                   }) {
+    const query =
+        `?hallId=${hallId}` +
+        `&rows=${rows}` +
+        `&seatsInRow=${seatsInRow}` +
+        `&vipFrom=${vipFrom}&vipTo=${vipTo}` +
+        `&standardFrom=${standardFrom}&standardTo=${standardTo}` +
+        `&economyFrom=${economyFrom}&economyTo=${economyTo}` +
+        `&vipPrice=${vipPrice}` +
+        `&standardPrice=${standardPrice}` +
+        `&economyPrice=${economyPrice}`;
+
+    return request(`/seats/generate-range${query}`, "POST");
+}
+
+export function createHallFull(params) {
+    const query = new URLSearchParams(params).toString();
+    return request(`/halls/create-full?${query}`, "POST");
+}
+export { request };

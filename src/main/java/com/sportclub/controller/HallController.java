@@ -1,7 +1,9 @@
 package com.sportclub.controller;
 
+import com.sportclub.model.Event;
 import com.sportclub.model.Hall;
 import com.sportclub.service.HallService;
+import com.sportclub.service.SeatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +16,53 @@ import java.util.List;
 public class HallController {
 
     private final HallService hallService;
+    private final SeatService seatService;
 
     @PostMapping("/create")
     public ResponseEntity<Hall> create(@RequestBody Hall hall) {
         return ResponseEntity.ok(hallService.create(hall));
+    }
+
+    @PostMapping("/create-full")
+    public ResponseEntity<Hall> createFullHall(
+            @RequestParam Long eventId,
+            @RequestParam int rows,
+            @RequestParam int seatsInRow,
+
+            @RequestParam int vipFrom,
+            @RequestParam int vipTo,
+            @RequestParam double vipPrice,
+
+            @RequestParam int standardFrom,
+            @RequestParam int standardTo,
+            @RequestParam double standardPrice,
+
+            @RequestParam int economyFrom,
+            @RequestParam int economyTo,
+            @RequestParam double economyPrice
+    ) {
+        // 1️⃣ Створюємо зал, прив'язаний до події
+        Hall hall = new Hall();
+        hall.setEvent(Event.builder().id(eventId).build());
+        hall.setRowsCount(rows);
+        hall.setSeatsInRow(seatsInRow);
+
+        hall = hallService.create(hall);
+
+        // 2️⃣ Генеруємо сидіння для цього залу
+        seatService.generateSeatRanges(
+                hall.getId(),
+                rows,
+                seatsInRow,
+                vipFrom, vipTo,
+                standardFrom, standardTo,
+                economyFrom, economyTo,
+                vipPrice,
+                standardPrice,
+                economyPrice
+        );
+
+        return ResponseEntity.ok(hall);
     }
 
     @GetMapping("/{id}")

@@ -25,7 +25,6 @@ export default function SalesOpeningPanel() {
 
         alert("Ticket sales opening successfully created!");
 
-        // очищення форми
         setEventName("");
         setDateTime("");
         setPlace("");

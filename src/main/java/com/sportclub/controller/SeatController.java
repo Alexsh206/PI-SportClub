@@ -42,4 +42,31 @@ public class SeatController {
         seatService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    // Якщо хочеш залишити окремий генератор
+    @PostMapping("/generate-range")
+    public ResponseEntity<String> generateSeatRanges(
+            @RequestParam Long hallId,
+            @RequestParam int rows,
+            @RequestParam int seatsInRow,
+            @RequestParam int vipFrom,
+            @RequestParam int vipTo,
+            @RequestParam int standardFrom,
+            @RequestParam int standardTo,
+            @RequestParam int economyFrom,
+            @RequestParam int economyTo,
+            @RequestParam double vipPrice,
+            @RequestParam double standardPrice,
+            @RequestParam double economyPrice
+    ) {
+        seatService.generateSeatRanges(
+                hallId, rows, seatsInRow,
+                vipFrom, vipTo,
+                standardFrom, standardTo,
+                economyFrom, economyTo,
+                vipPrice, standardPrice, economyPrice
+        );
+
+        return ResponseEntity.ok("Seat ranges generated successfully");
+    }
 }
