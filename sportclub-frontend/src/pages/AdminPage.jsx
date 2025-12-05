@@ -9,6 +9,8 @@ import AthletesPanel from "../components/AthletesPanel";
 import UsersPanel from "../components/UsersPanel";
 import ReportPanel from "../components/ReportPanel";
 import SalesOpeningPanel from "../components/SalesOpeningPanel";
+import HallLayoutPanel from "../components/HallLayoutPanel";
+
 
 export default function AdminPage() {
     const [panel, setPanel] = useState(null);
@@ -63,6 +65,8 @@ export default function AdminPage() {
                     {panel === "users" && <UsersPanel />}
                     {panel === "report" && <ReportPanel />}
                     {panel === "sales" && <SalesOpeningPanel />}
+                    {panel === "hall" && <HallLayoutPanel />}
+
                 </div>
 
             </div>

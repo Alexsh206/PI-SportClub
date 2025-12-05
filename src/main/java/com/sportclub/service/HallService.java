@@ -22,6 +22,12 @@ public class HallService {
                 .orElseThrow(() -> new RuntimeException("Hall not found"));
     }
 
+
+    public Hall getHallByEvent(Long eventId) {
+        return hallRepository.findByEventId(eventId)
+                .orElseThrow(() -> new RuntimeException("Hall for event not found"));
+    }
+
     public List<Hall> getAll() {
         return hallRepository.findAll();
     }

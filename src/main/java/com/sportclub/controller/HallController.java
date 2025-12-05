@@ -25,6 +25,11 @@ public class HallController {
         return ResponseEntity.ok(hallService.getById(id));
     }
 
+    @GetMapping("/event/{eventId}")
+    public ResponseEntity<Hall> getHallByEvent(@PathVariable Long eventId) {
+        return ResponseEntity.ok(hallService.getHallByEvent(eventId));
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<Hall>> getAll() {
         return ResponseEntity.ok(hallService.getAll());

@@ -119,3 +119,11 @@ export function blockUser(id) {
 export function unblockUser(id) {
     return request(`/spectators/unblock/${id}`, "PUT");
 }
+
+export function createHallLayout(hallData) {
+    return request("/halls/create", "POST", hallData);
+}
+
+export function getHallByEvent(eventId) {
+    return request(`/halls/event/${eventId}`);
+}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import {useParams, useNavigate, Link} from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useAuth } from "../auth/AuthProvider";
 
@@ -68,7 +68,9 @@ export default function EventDetailsPage() {
             </div>
 
             <div className="event-buy-container">
-                <button className="buy-btn">Buy now</button>
+                <Link to={`/event/${event.id}/seats`}>
+                    <button>Buy now</button>
+                </Link>
             </div>
         </div>
     );
