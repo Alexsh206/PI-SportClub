@@ -45,6 +45,11 @@ public class SeatService {
         seatRepository.deleteById(id);
     }
 
+    public List<Seat> getSeatsByHall(Long hallId) {
+        return seatRepository.findByHallId(hallId);
+    }
+
+
     // --------------------------------------------------------
     //  Генерація сидінь за діапазонами (VIP / Standard / Economy)
     // --------------------------------------------------------
@@ -87,5 +92,37 @@ public class SeatService {
                 seatRepository.save(seat);
             }
         }
+    }
+    public Seat reserveSeat(Long id) {
+        Seat seat = getById(id);
+
+        if (!seat.getStatus().equals("FREE")) {
+            throw new RuntimeException("Seat is not available");
+        }
+
+        seat.setStatus("RESERVED");
+        return seatRepository.save(seat);
+    }
+
+    public Seat freeSeat(Long id) {
+        Seat seat = getById(id);
+
+        if (seat.getStatus().equals("SOLD")) {
+            throw new RuntimeException("Cannot free a sold seat");
+        }
+
+        seat.setStatus("FREE");
+        return seatRepository.save(seat);
+    }
+
+    public Seat sellSeat(Long id) {
+        Seat seat = getById(id);
+
+        if (!seat.getStatus().equals("RESERVED")) {
+            throw new RuntimeException("Seat must be reserved before purchase");
+        }
+
+        seat.setStatus("SOLD");
+        return seatRepository.save(seat);
     }
 }

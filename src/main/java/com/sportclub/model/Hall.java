@@ -1,5 +1,6 @@
 package com.sportclub.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,5 +32,7 @@ public class Hall {
     private Integer seatsInRow;
 
     @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @ToString.Exclude
     private List<Seat> seats;
 }

@@ -863,7 +863,41 @@
     font-size: 18px;
     cursor: pointer;
 }
+.hall-panel {
+    padding: 20px;
+}
 
+.hall-box {
+    background: #62c7b3;
+    padding: 25px;
+    border-radius: 20px;
+    width: 500px;
+}
+
+.hall-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+.hall-input {
+    background: #b0c4c1;
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 16px;
+}
+
+.hall-btn {
+    margin-top: 10px;
+    padding: 12px 25px;
+    background: #1b45c2;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 18px;
+    cursor: pointer;
+}
 .seat-page {
     padding: 20px;
     text-align: center;
@@ -871,156 +905,77 @@
 
 .seat-title {
     font-size: 32px;
-    margin-bottom: 30px;
-}
-
-.seats-container {
-    display: inline-block;
-    padding: 20px;
-    background: #62c7b3;
-    border-radius: 20px;
-}
-
-.seat-row {
-    display: flex;
-    justify-content: center;
-    margin: 5px 0;
-}
-
-.seat {
-    width: 45px;
-    height: 45px;
-    background: #b0c4c1;
-    border-radius: 10px;
-    margin: 3px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: 0.2s;
-    font-size: 14px;
-}
-
-.seat:hover {
-    background: #8fb1ae;
-}
-
-.seat.selected {
-    background: #1b45c2;
-    color: white;
+    margin-top: 20px;
     font-weight: bold;
 }
 
-.selected-box {
-    margin-top: 25px;
-    padding: 20px;
-    background: #62c7b3;
-    display: inline-block;
-    border-radius: 20px;
-}
-
-.buy-btn {
-    margin-top: 15px;
-    background: #1b45c2;
-    color: white;
-    padding: 12px 30px;
-    border-radius: 20px;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
+.seat-loading {
+    text-align: center;
+    margin-top: 40px;
 }
 
 .seat-grid {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin: 30px auto;
-    width: fit-content;
+    align-items: center;
+    margin-top: 25px;
 }
 
 .seat-row {
     display: flex;
-    gap: 8px;
-    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.row-label {
+    margin-right: 12px;
+    width: 70px;
+    font-weight: bold;
+    text-align: right;
 }
 
 .seat {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    background: #b3e6d1;
-    border: 2px solid #3a9c7c;
+    width: 32px;
+    height: 32px;
+    background: #b2ead4;
+    margin: 4px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    font-size: 14px;
     transition: 0.2s;
+    border: 2px solid transparent;
+    font-weight: bold;
 }
 
 .seat:hover {
-    background: #8bd8ba;
+    transform: scale(1.1);
+    background: #97ddb8;
 }
 
 .seat.selected {
-    background: #2c7f62;
+    background: #1aad6f;
     color: white;
+    border-color: #0a5735;
 }
 
-.hall-layout-wrapper {
-    width: 60%;
-    margin: 40px auto;
-    background: #bdece2;
-    padding: 30px;
-    border-radius: 20px;
+.seat-summary {
+    margin-top: 25px;
 }
 
-.hall-form {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.input {
-    width: 100%;
-    padding: 10px 15px;
-    border-radius: 12px;
-    border: none;
-    background: #d3d3d3;
-    font-size: 16px;
-}
-
-.two-cols {
-    display: flex;
-    gap: 20px;
-}
-
-.category-block {
-    background: #7ccfc0;
-    padding: 20px;
-    border-radius: 18px;
-}
-
-.vip { background: #73d9d0; }
-.standard { background: #66c7b0; }
-.economy { background: #5bb39f; }
-
-.submit-btn {
-    background: #1d4ed8;
+.buy-btn {
+    margin-top: 15px;
+    background: #0066ff;
     color: white;
     padding: 12px 25px;
     border-radius: 20px;
-    font-size: 18px;
     border: none;
-    width: fit-content;
-    align-self: center;
     cursor: pointer;
+    font-size: 18px;
+    transition: 0.2s;
 }
 
-.msg {
-    text-align: center;
-    color: #083;
-    font-weight: bold;
+.buy-btn:hover {
+    background: #004fcc;
 }

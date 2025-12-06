@@ -1,5 +1,6 @@
 package com.sportclub.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,6 +21,7 @@ public class Seat {
 
     @ManyToOne
     @JoinColumn(name = "hall_id", nullable = false)
+    @JsonBackReference
     private Hall hall;
 
     @Column(name = "row_number", nullable = false)
@@ -29,10 +31,13 @@ public class Seat {
     private Integer seatNumber;
 
     @Column(name = "seat_type", nullable = false)
-    private String seatType; // front / middle / back
+    private String seatType;
 
     @Column(nullable = false)
     private Double price;
+
+    @Column(nullable = false)
+    private String status = "FREE";
 
     @OneToOne(mappedBy = "seat", cascade = CascadeType.ALL)
     private Ticket ticket;

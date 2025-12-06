@@ -192,3 +192,39 @@ export function createHallFull(params) {
     return request(`/halls/create-full?${query}`, "POST");
 }
 export { request };
+
+export function getAllSeats() {
+    return request("/seats/all");
+}
+
+export function processPayment({ spectatorId, eventId, seatId }) {
+    const query = `?spectatorId=${spectatorId}&eventId=${eventId}&seatId=${seatId}`;
+    return request(`/payments/pay${query}`, "POST");
+}
+
+export async function reserveMultipleSeats(seatIds) {
+    for (const id of seatIds) {
+        await request(`/seats/reserve/${id}`, "POST");
+    }
+}
+
+export async function sellMultipleSeats(seatIds) {
+    for (const id of seatIds) {
+        await request(`/seats/sell/${id}`, "POST");
+    }
+}
+
+
+
+export function reserveSeat(id) {
+    return request(`/seats/reserve/${id}`, "POST");
+}
+
+export function freeSeat(id) {
+    return request(`/seats/free/${id}`, "POST");
+}
+
+export function sellSeat(id) {
+    return request(`/seats/sell/${id}`, "POST");
+}
+

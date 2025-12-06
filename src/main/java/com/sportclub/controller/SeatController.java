@@ -69,4 +69,24 @@ public class SeatController {
 
         return ResponseEntity.ok("Seat ranges generated successfully");
     }
+    @GetMapping("/hall/{hallId}")
+    public ResponseEntity<List<Seat>> getSeatsByHall(@PathVariable Long hallId) {
+        return ResponseEntity.ok(seatService.getSeatsByHall(hallId));
+    }
+
+    @PostMapping("/reserve/{id}")
+    public ResponseEntity<Seat> reserve(@PathVariable Long id) {
+        return ResponseEntity.ok(seatService.reserveSeat(id));
+    }
+
+    @PostMapping("/free/{id}")
+    public ResponseEntity<Seat> free(@PathVariable Long id) {
+        return ResponseEntity.ok(seatService.freeSeat(id));
+    }
+
+    @PostMapping("/sell/{id}")
+    public ResponseEntity<Seat> sell(@PathVariable Long id) {
+        return ResponseEntity.ok(seatService.sellSeat(id));
+    }
 }
+

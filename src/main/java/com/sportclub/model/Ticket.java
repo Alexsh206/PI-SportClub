@@ -34,7 +34,6 @@ public class Ticket {
 
     @Column(nullable = false)
     private String status;
-    // available / reserved / sold / returned
 
     @Column(name = "purchase_date")
     private LocalDateTime purchaseDate;
