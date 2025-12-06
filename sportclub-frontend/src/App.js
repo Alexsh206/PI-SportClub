@@ -5,6 +5,7 @@ import {AuthProvider} from "./auth/AuthProvider";
 import LoginPage from "./pages/LoginPage";
 import EventDetailsPage from "./pages/EventDetailsPage";
 import AdminPage from "./pages/AdminPage";
+import CoachPanel from "./components/CoachPanel";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/events/:id" element={<EventDetailsPage />} />
                 <Route path="/admin" element={<AdminPage />} />
+                <Route path="/coach" element={<CoachPanel />} />
             </Routes>
             </AuthProvider>
         </Router>
