@@ -6,8 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/payments")
 @RequiredArgsConstructor
@@ -19,25 +17,11 @@ public class PaymentController {
     public ResponseEntity<Payment> pay(
             @RequestParam Long spectatorId,
             @RequestParam Long eventId,
-            @RequestParam Long seatId
+            @RequestParam Long seatId,
+            @RequestParam Double amount
     ) {
         return ResponseEntity.ok(
-                paymentService.processPayment(spectatorId, eventId, seatId)
+                paymentService.processPayment(spectatorId, eventId, seatId, amount)
         );
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Payment> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(paymentService.getById(id));
-    }
-
-    @GetMapping("/event/{eventId}")
-    public ResponseEntity<List<Payment>> getByEvent(@PathVariable Long eventId) {
-        return ResponseEntity.ok(paymentService.getByEvent(eventId));
-    }
-
-    @GetMapping("/user/{spectatorId}")
-    public ResponseEntity<List<Payment>> getByUser(@PathVariable Long spectatorId) {
-        return ResponseEntity.ok(paymentService.getByUser(spectatorId));
     }
 }

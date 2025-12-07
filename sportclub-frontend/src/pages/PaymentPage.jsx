@@ -1,52 +1,79 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import { getSeatById, payForSeat } from "../api/api";
+import { useAuth } from "../auth/AuthProvider";
 
 export default function PaymentPage() {
-    const { search } = useLocation();
+    const { user } = useAuth();
+    const location = useLocation();
+    const navigate = useNavigate();
 
-    const params = new URLSearchParams(search);
+    const query = new URLSearchParams(location.search);
 
-    const eventId = params.get("event");
-    const seatIdsRaw = params.get("seats");
-    const amount = Number(params.get("amount"));
+    const eventId = query.get("event");
+    const seatIds = query.get("seats")?.split(",") || [];
+    const amount = query.get("amount") || 0;
 
-    const seatIds = seatIdsRaw ? seatIdsRaw.split(",").map(Number) : [];
+    const [seatDetails, setSeatDetails] = useState([]);
+
+    useEffect(() => {
+        async function load() {
+            const list = [];
+            for (const id of seatIds) {
+                const seat = await getSeatById(id);
+                list.push(seat);
+            }
+            setSeatDetails(list);
+        }
+        load();
+    }, []);
+
+    const handlePayment = async () => {
+        try {
+            if (!user || !user.id) {
+                alert("User not logged in!");
+                return;
+            }
+
+            const spectatorId = user.id; // 🔥 АВТОМАТИЧНО
+
+            for (const seat of seatDetails) {
+                await payForSeat({
+                    spectatorId,
+                    eventId,
+                    seatId: seat.id,
+                    amount: seat.price
+                });
+            }
+
+            alert("Оплата успішна!");
+            navigate("/profile");
+
+        } catch (err) {
+            alert("Payment failed: " + err.message);
+        }
+    };
 
     return (
         <div>
             <Navbar />
 
-            <h1 style={{ marginLeft: "20px" }}>Confirm Your Purchase</h1>
+            <h1>Confirm Your Purchase</h1>
 
-            <div style={{ padding: "20px", fontSize: "20px" }}>
-                <h2>Selected seats</h2>
+            <div>
+                <h3>Selected seats:</h3>
+                <ul>
+                    {seatDetails.map(s => (
+                        <li key={s.id}>
+                            Row {s.rowNumber}, Seat {s.seatNumber} — {s.price} ₴
+                        </li>
+                    ))}
+                </ul>
 
-                {seatIds.length === 0 ? (
-                    <p>No seats selected</p>
-                ) : (
-                    <ul>
-                        {seatIds.map(id => (
-                            <li key={id}>Seat ID: {id}</li>
-                        ))}
-                    </ul>
-                )}
+                <h3>Total: {amount} ₴</h3>
 
-                <h2>Total: {amount} ₴</h2>
-
-                <button
-                    style={{
-                        marginTop: "20px",
-                        padding: "12px 25px",
-                        background: "#0077ff",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "10px",
-                        fontSize: "20px",
-                        cursor: "pointer"
-                    }}
-                    onClick={() => alert("Payment will be implemented")}
-                >
+                <button onClick={handlePayment} className="buy-btn">
                     Pay now
                 </button>
             </div>

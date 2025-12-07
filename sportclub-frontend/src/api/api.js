@@ -197,9 +197,8 @@ export function getAllSeats() {
     return request("/seats/all");
 }
 
-export function processPayment({ spectatorId, eventId, seatId }) {
-    const query = `?spectatorId=${spectatorId}&eventId=${eventId}&seatId=${seatId}`;
-    return request(`/payments/pay${query}`, "POST");
+export function processPayment(paymentData) {
+    return request("/payments/process", "POST", paymentData);
 }
 
 export async function reserveMultipleSeats(seatIds) {
@@ -228,3 +227,21 @@ export function sellSeat(id) {
     return request(`/seats/sell/${id}`, "POST");
 }
 
+export function payForSeat({ spectatorId, eventId, seatId, amount }) {
+    const query =
+        `?spectatorId=${spectatorId}` +
+        `&eventId=${eventId}` +
+        `&seatId=${seatId}` +
+        `&amount=${amount}`;
+
+    return request(`/payments/pay${query}`, "POST");
+}
+
+
+export function getSeatById(id) {
+    return request(`/seats/${id}`);
+}
+
+export function getTicketsBySpectator(spectatorId) {
+    return request(`/tickets/spectator/${spectatorId}`);
+}

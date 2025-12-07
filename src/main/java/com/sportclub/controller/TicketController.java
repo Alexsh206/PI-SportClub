@@ -43,7 +43,6 @@ public class TicketController {
         return ResponseEntity.noContent().build();
     }
 
-    // --- PURCHASE ---
     @PostMapping("/buy/{ticketId}/spectator/{spectatorId}")
     public ResponseEntity<Ticket> buyTicket(
             @PathVariable Long ticketId,
@@ -56,4 +55,10 @@ public class TicketController {
     public ResponseEntity<Ticket> returnTicket(@PathVariable Long ticketId) {
         return ResponseEntity.ok(ticketService.returnTicket(ticketId));
     }
+
+    @GetMapping("/spectator/{id}")
+    public ResponseEntity<List<Ticket>> getTicketsBySpectator(@PathVariable Long id) {
+        return ResponseEntity.ok(ticketService.getTicketsBySpectator(id));
+    }
+
 }

@@ -1,55 +1,69 @@
 package com.sportclub.service;
 
-import com.sportclub.model.Payment;
-import com.sportclub.model.Seat;
-import com.sportclub.repository.PaymentRepository;
-import com.sportclub.repository.SeatRepository;
+import com.sportclub.model.*;
+import com.sportclub.repository.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PaymentService {
 
     private final PaymentRepository paymentRepository;
+    private final TicketRepository ticketRepository;
     private final SeatRepository seatRepository;
+    private final EventRepository eventRepository;
+    private final SpectatorRepository spectatorRepository;
 
-    public Payment processPayment(Long spectatorId, Long eventId, Long seatId) {
+    public Payment processPayment(Long spectatorId, Long eventId, Long seatId, Double amount) {
+
+        log.info("Starting payment: spectator={}, event={}, seat={}", spectatorId, eventId, seatId);
 
         Seat seat = seatRepository.findById(seatId)
                 .orElseThrow(() -> new RuntimeException("Seat not found"));
 
-        if (seat.getStatus().equals("SOLD")) {
-            throw new RuntimeException("Seat is already sold");
+        if ("SOLD".equals(seat.getStatus())) {
+            throw new RuntimeException("Seat already sold");
         }
 
-        seat.setStatus("SOLD");
-        seatRepository.save(seat);
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new RuntimeException("Event not found"));
+
+        Spectator spectator = spectatorRepository.findById(spectatorId)
+                .orElseThrow(() -> new RuntimeException("Spectator not found"));
 
         Payment payment = Payment.builder()
                 .spectatorId(spectatorId)
                 .eventId(eventId)
                 .seatId(seatId)
-                .amount(seat.getPrice())
+                .amount(amount)
                 .paidAt(LocalDateTime.now())
                 .build();
 
-        return paymentRepository.save(payment);
-    }
+        paymentRepository.save(payment);
+        log.info("Payment saved: {}", payment.getId());
 
-    public Payment getById(Long id) {
-        return paymentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Payment not found"));
-    }
+        Ticket ticket = Ticket.builder()
+                .seat(seat)
+                .event(event)
+                .spectator(spectator)
+                .status("ACTIVE")
+                .purchaseDate(LocalDateTime.now())
+                .build();
 
-    public List<Payment> getByEvent(Long eventId) {
-        return paymentRepository.findByEventId(eventId);
-    }
+        Ticket saved = ticketRepository.save(ticket);
+        log.info("Ticket created: {}", saved.getId());
 
-    public List<Payment> getByUser(Long spectatorId) {
-        return paymentRepository.findBySpectatorId(spectatorId);
+        seat.setStatus("SOLD");
+        seat.setTicket(saved);
+        seatRepository.save(seat);
+
+        log.info("Seat {} marked SOLD", seatId);
+
+        return payment;
     }
 }

@@ -27,6 +27,11 @@ public class TicketService {
         return ticketRepository.findAll();
     }
 
+    public List<Ticket> getTicketsBySpectator(Long spectatorId) {
+        return ticketRepository.findAllBySpectatorId(spectatorId);
+    }
+
+
     public Ticket update(Long id, Ticket updated) {
         Ticket ticket = getById(id);
 
