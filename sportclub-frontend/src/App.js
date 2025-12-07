@@ -7,6 +7,7 @@ import EventDetailsPage from "./pages/EventDetailsPage";
 import AdminPage from "./pages/AdminPage";
 import SeatSelectedPage from "./pages/SeatSelectedPage";
 import PaymentPage from "./pages/PaymentPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                 <Route path="/admin" element={<AdminPage />} />
                 <Route path="/event/:id/seats" element={<SeatSelectedPage />} />
                 <Route path="/payment" element={<PaymentPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
 
             </Routes>
             </AuthProvider>
