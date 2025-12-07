@@ -90,36 +90,61 @@
 /* ----------------------------- */
 /* EVENT CARD                   */
 /* ----------------------------- */
-
 .event-card {
-    background-color: var(--bg-card);
-    padding: 25px;
     width: 300px;
-    height: 220px;
-    border-radius: 20px;
+    background: #b7e8dd;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-}
-
-.event-title {
-    font-size: 28px;
-    font-weight: 700;
-}
-
-.event-teams,
-.event-date {
-    font-size: 20px;
-}
-
-.show-more-btn {
-    align-self: flex-end;
-    background: none;
-    border: none;
-    font-weight: 700;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
     cursor: pointer;
-    font-size: 18px;
 }
+
+.event-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.event-card-image img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+}
+
+.event-card-content {
+    padding: 18px;
+}
+
+.event-card-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.event-card-info p {
+    margin: 3px 0;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.event-card-btn {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 10px 20px;
+    background: #00897b;
+    color: white;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.25s ease;
+}
+
+.event-card-btn:hover {
+    background: #006f63;
+}
+
 
 /* ===== LOGIN PAGE ===== */
 .login-page {

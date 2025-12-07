@@ -16,7 +16,6 @@ export default function EventDetailsPage() {
     const [event, setEvent] = useState(null);
     const [participants, setParticipants] = useState([]);
 
-    // Перевірка ролі
     useEffect(() => {
         if (!user) {
             navigate("/login");
@@ -28,7 +27,6 @@ export default function EventDetailsPage() {
         }
     }, [user]);
 
-    // Завантаження даних івента
     useEffect(() => {
         getEventById(id).then(setEvent);
         getParticipantsByEvent(id).then(setParticipants);
@@ -55,11 +53,12 @@ export default function EventDetailsPage() {
                         {participants.map(p => (
                             <li key={p.id}>
                                 {p.participantType === "team"
-                                    ? `Team: ${p.team?.name}`
-                                    : `Athlete: ${p.athlete?.fullName}`}
+                                    ? `Team: ${p.team?.teamName ?? "N/A"}`
+                                    : `Athlete: ${p.athlete?.fullName ?? "N/A"}`}
                             </li>
                         ))}
                     </ul>
+
                 </div>
 
                 <div className="event-right">
